@@ -13,7 +13,12 @@ module.exports = class Item {
         var infoItem = this.processJson(jsonIn);
         var newName = this.findValidName(infoItem.heading, 0);
         if (newName !== infoItem.heading) {
-            this.utility.sendMsg(msg.channel, "WARNING: Multiple entries found for info " + infoItem.heading + " or info heading invalid for item " + this.nameID + "; will create new info item under name " + newName);
+            this.utility.sendMsg(
+                msg.channel, 
+                `WARNING: Multiple entries found for info ${infoItem.heading} \
+                 or info heading invalid for item ${this.nameID}; will create \
+                 new info item under name ${newName}`
+                );
             infoItem.heading = newName;
         }
         this.infos.push(infoItem);
@@ -89,12 +94,12 @@ module.exports = class Item {
     renameID(msg, msgInfo2) {
         var oldName = this.nameID;
         this.nameID = msgInfo2;
-        this.utility.sendMsg(msg.channel, "Item ID name changed from " + oldName + " to " + this.nameID);
+        this.utility.sendMsg(msg.channel, `Item ID name changed from ${oldName} to ${this.nameID}`);
     }
     renameInfo(msg, msgInfo2, msgInfo3) {
         var info = this.infos.find(x => x.heading.toLowerCase() === msgInfo2.toLowerCase());
         if (info === undefined) {
-            this.utility.sendMsg(msg.channel, "Info type " + msgInfo2 + " for item " + this.nameID + " not found");
+            this.utility.sendMsg(msg.channel, `Info type ${msgInfo2} for item ${this.nameID} not found`);
             return;
         }
         if (this.infos.find(x => x.heading.toLowerCase() === msgInfo3.toLowerCase())) {
@@ -102,35 +107,35 @@ module.exports = class Item {
             return;
         }
         info.heading = msgInfo3;
-        this.utility.sendMsg(msg.channel, "Info header changed from " + msgInfo2 + " to " + msgInfo3);
+        this.utility.sendMsg(msg.channel, `Info header changed from ${msgInfo2} to ${msgInfo3}`);
     }
     editVisible(msg, msgInfo2, msgInfo3) {
         var info = this.infos.find(x => x.heading.toLowerCase() === msgInfo2.toLowerCase());
         if (info === undefined) {
-            this.utility.sendMsg(msg.channel, "Info type " + msgInfo2 + " for item " + this.nameID + " not found");
+            this.utility.sendMsg(msg.channel, `Info type ${msgInfo2} for item ${this.nameID} not found`);
             return;
         }
         var firstChar = msgInfo3.toLowerCase().substring(0, 1);
         info.visible = (firstChar === "y" || firstChar === "t" || msgInfo2.toLowerCase() === "on") ? true : false;
-        this.utility.sendMsg(msg.channel, "Info visibility for " + msgInfo2 + " for item " + this.nameID + " set to " + info.visible);
+        this.utility.sendMsg(msg.channel, `Info visibility for ${ msgInfo2} for item ${this.nameID} set to ${info.visible}`)
     }
     editText(msg, msgInfo2, msgInfo3) {
         var info = this.infos.find(x => x.heading.toLowerCase() === msgInfo2.toLowerCase());
         if (info === undefined) {
-            this.utility.sendMsg(msg.channel, "Info type " + msgInfo2 + " for item " + this.nameID + " not found");
+            this.utility.sendMsg(msg.channel, `Info type ${msgInfo2} for item ${this.nameID} not found`);
             return;
         }
         info.text = msgInfo3;
-        this.utility.sendMsg(msg.channel, "Info text changed for " + msgInfo2 + " of item " + this.nameID);
+        this.utility.sendMsg(msg.channel, `Info text changed for ${msgInfo2} of item ${this.nameID}`);
     }
     deleteInfo(msg, msgInfo2) {
         var infoIndex = this.infos.findIndex(x => x.heading.toLowerCase() === msgInfo2.toLowerCase());
         if (infoIndex === -1) {
-            this.utility.sendMsg(msg.channel, "Info type " + msgInfo2 + " for item " + this.nameID + " not found");
+            this.utility.sendMsg(msg.channel, `Info type ${msgInfo2} for item ${this.nameID} not found`);
             return;
         }
         this.infos.splice(infoIndex, 1);
-        this.utility.sendMsg(msg.channel, msgInfo2 + " info deleted for item " + this.nameID);
+        this.utility.sendMsg(msg.channel, `${msgInfo2} info deleted for item ${this.nameID}`);
     }
     addInfo(msg, msgInfo2, msgInfo3, msgInfo4) {
         if (msgInfo2 === "") {
@@ -147,7 +152,7 @@ module.exports = class Item {
             visible: (firstChar === "y" || firstChar === "t") ? true : false,
             "text": msgInfo4
         });
-        this.utility.sendMsg(msg.channel, "New info type " + msgInfo2 + " added for item " + this.nameID);
+        this.utility.sendMsg(msg.channel, `New info type ${msgInfo2} added for item ${this.nameID}`);
     }
     save() {
         var returnSave = [];
