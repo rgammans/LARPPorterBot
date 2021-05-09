@@ -14,4 +14,4 @@ client.on('message', msg => {
     gameManager.msgHandler(msg, client.user.id);
 });
 
-client.login('BOTID');
+client.login(process.env.BOT_SECRET_ID);
