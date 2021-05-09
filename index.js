@@ -13,5 +13,15 @@ client.on('message', msg => {
     }
     gameManager.msgHandler(msg, client.user.id);
 });
+client.on('voiceStateUpdate', (oldState,newState) => {
+    //console.log(oldState, newState)
+    let locName = newState.channel && newState.channel.name;
+    let pc = gameManager.findObject(newState.member.nickname, true, false,false,true);
+    let loc = gameManager.findbyVoice(locName);
+    if (pc != undefined && loc != undefined ) {
+        pc.move(null,loc);
+    }
+});
+
 
 client.login(process.env.BOT_SECRET_ID);

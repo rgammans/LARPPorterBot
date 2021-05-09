@@ -8,6 +8,7 @@ module.exports = class Character {
         this.index = _index;
         this.nameID = undefined;
         this.description = undefined;
+        this.voiceAlias = undefined;
         this.locTrue = _locTrue;
         this.guild = _guild;
         this.parObj = _parObj;
@@ -42,6 +43,9 @@ module.exports = class Character {
                 case 'nickname':
                 case 'description':
                     this.description = jsonIn[jObj];
+                    break;
+                case 'voice':
+                    this.voiceAlias = jsonIn[jObj];
                     break;
                 case 'cash':
                     this.cash = typeof(jsonIn[jObj]) === "string" ? Number(jsonIn[jObj].replace(/,/g, '')) : Number(jsonIn[jObj]);
@@ -191,9 +195,10 @@ module.exports = class Character {
         }
         this.location = newLocation;
         newLocation.claim(msg, this.userID);
-        if (msg.member.id !== this.userID) {
+        if (msg && msg.member.id !== this.userID) {
             this.utility.sendMsg(msg.channel, this.nameID + " has moved to " + newLocation.nameID);
         }
+        console.log(`${this.nameID} has moved to ${newLocation.nameID}`);
     }
     leave(msg) {
         if (this.location === undefined) {
@@ -201,7 +206,7 @@ module.exports = class Character {
             return;
         }
         this.location.release(msg, this.userID, this.nameID, false);
-        if (msg.member.id !== this.userID) {
+        if (msg && msg.member.id !== this.userID) {
             this.utility.sendMsg(msg.channel, this.nameID + " has left " + this.location.nameID);
         }
         this.location = undefined;
@@ -252,7 +257,9 @@ module.exports = class Character {
             if (this.locTrue) {
                 var removeIndex = this.userID.findIndex(x => x === memberID);
                 if (removeIndex === -1 && !isStop) {
-                    this.utility.sendMsg(msg.channel, "ERROR: Cannot find this user at location " + this.nameID);
+                    if (msg) {
+                        this.utility.sendMsg(msg.channel, "ERROR: Cannot find this user at location " + this.nameID);
+                    }
                     return;
                 }
                 this.userID.splice(removeIndex, 1);
@@ -274,7 +281,7 @@ module.exports = class Character {
             if (this.location !== undefined) {
                 this.location.release(msg, memberID, this.nameID, isStop);
             }
-            if (!isStop) {
+            if (msg && !isStop) {
                 this.utility.sendMsg(msg.channel, (this.locTrue ? " You have left location " : "You have released character ") + this.nameID);
             }
         }

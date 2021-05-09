@@ -224,6 +224,12 @@ module.exports = class GameManager {
         }
         return true;
     }
+
+    findbyVoice(voiceName, ) {
+        voiceName = voiceName.toLowerCase();
+        return this.locations.find(x => x.voiceAlias.toLowerCase() === voiceName);
+    }
+
     findObject(objectName, includeCharacters, includeLocations, includeItems, returnItem) {
         objectName = objectName.toLowerCase();
         var findObj = undefined;
@@ -297,6 +303,7 @@ module.exports = class GameManager {
         }
         this.utility.readFile(msg, './csvs/characters.csv', this.initCharacters, this, [msg], true);
     }
+
     initCharacters(msg, fileData) {
         if (fileData.length > 0) {
             if (!fileData[0].hasOwnProperty('Name')) {
@@ -498,6 +505,7 @@ module.exports = class GameManager {
     }
     move(msg, msgInfo1, msgInfo2) {
         var findObj = this.checks(msg, true, false, false, true, true);
+
         if (findObj === false) {
             return;
         }
