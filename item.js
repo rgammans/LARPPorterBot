@@ -27,6 +27,8 @@ module.exports = class Item {
         var infoItem = {
             heading: "",
             visible: true,
+            isEdible: false,
+            edibleMsg: "",
             text: ""
         };
         for (var jObj in dataItem) {
@@ -37,6 +39,13 @@ module.exports = class Item {
                 case 'section':
                     infoItem.heading = typeof(dataItem[jObj]) === "string" ? dataItem[jObj].replace(" ", "_") : dataItem[jObj];
                     break;
+                case 'eatmessage':
+                    infoItem.edibleMsg = dataItem[jObj];
+                    break
+                case 'edible':
+                    var firstChar = dataItem[jObj].toLowerCase().substring(0, 1);
+                    infoItem.isEdible = (firstChar === "y" || firstChar === "t") ? true : false;
+                    break
                 case 'visible':
                 case 'visibility':
                 case 'visible?':
@@ -153,6 +162,14 @@ module.exports = class Item {
             "text": msgInfo4
         });
         this.utility.sendMsg(msg.channel, `New info type ${msgInfo2} added for item ${this.nameID}`);
+    }
+    isEdible(character) {
+        for (let info of this.infos) {
+            if (info.isEdible &&  character.itemCodes.find(x => x.toLowerCase() === info.heading.toLowerCase())) {
+                return info.edibleMsg;
+            }
+        }
+        return false;
     }
     save() {
         var returnSave = [];

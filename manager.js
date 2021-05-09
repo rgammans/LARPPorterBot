@@ -104,6 +104,9 @@ module.exports = class GameManager {
                 case 'drop':
                     this.drop(msg, msgInfo1, msgInfo2);
                     break;
+                case 'eat':
+                    this.eat(msg, msgInfo1, msgInfo2);
+                    break;
 
                 case 'find':
                     this.findItem(msg, msgInfo1);
@@ -669,6 +672,22 @@ module.exports = class GameManager {
         }
         findObj.take(msg, msgInfo1);
     }
+    eat(msg, msgInfo1, msgInfo2) {
+        var findObj = this.checks(msg, true, false, false, true, true);
+        if (findObj === false) {
+            return;
+        }
+        if (findObj === true) {
+            findObj = this.findObject(msgInfo1, true, false, false, false);
+            if (findObj === undefined) {
+                this.utility.sendMsg(msg.channel, "Error: Canot find character " + msgInfo1);
+                return;
+            }
+            msgInfo1 = msgInfo2;
+        }
+        findObj.eat(msg, msgInfo1);
+    }
+ 
     drop(msg, msgInfo1, msgInfo2) {
         var findObj = this.checks(msg, true, false, false, true, true);
         if (findObj === false) {

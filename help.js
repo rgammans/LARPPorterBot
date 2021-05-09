@@ -14,6 +14,7 @@ exports.makeHelpText1 = function(prefix) {
     helptext = helptext + "**" + prefix + "leave**: Leave a location. You will lose access to its channel.\n";
     helptext = helptext + "**" + prefix + "take *ItemName/CashAmount***: Enter in a location to take something from there. The messages will vanish in approx 5 mins.\n";
     helptext = helptext + "**" + prefix + "drop *ItemName/CashAmount***: Enter in a location to leave something there. Your message will vanish in approx 5 mins.\n";
+    helptext = helptext + "**" + prefix + "eat *ItemName: Enter in a your channel to eat an item you possess.\n";
     helptext = helptext + "**" + prefix + "help gm/edit**: View GM only or GM edit commands - there are lots of these! \n";
     return helptext;
 }

@@ -8,7 +8,7 @@ module.exports = class Character {
         this.index = _index;
         this.nameID = undefined;
         this.description = undefined;
-        this.voiceAlias = undefined;
+        this.voiceAlias = "";
         this.locTrue = _locTrue;
         this.guild = _guild;
         this.parObj = _parObj;
@@ -589,6 +589,27 @@ module.exports = class Character {
         if (this.locTrue && this.msgManager !== undefined) {
             this.msgManager.setItems(this.items, this.cash);
         }
+    }
+    eat(msg, msgInfo2) {
+        if (this.locTrue) {
+            console.log("Somehow a location is eating an item");
+            return;
+        }
+        let itemIndex = this.items.findIndex(x => x.nameID.toLowerCase() === msgInfo2.toLowerCase());
+        if (itemIndex === -1) {
+            this.utility.sendMsg(msg.channel, "Error: Cannot find that item, have picked it up and typed the ID name correctly?");
+            return;
+        }
+        let item = this.items[itemIndex];
+        let eatenMsg = item.isEdible(this);
+        if (eatenMsg === false) {
+            this.utility.sendMsg(msg.channel, `${item.nameID} doesn't look very appetising`);
+            return;
+        }
+
+        this.items.splice(itemIndex, 1);
+        // TODO : Send to the GMs channels.
+        this.utility.sendMsg(msg.channel, `${item.nameID} has been eaten. ${eatenMsg}`);
     }
     removeItem(msg, msgInfo2) {
         var itemIndex = this.items.findIndex(x => x.nameID.toLowerCase() === msgInfo2.toLowerCase());
