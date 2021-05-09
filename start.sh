@@ -13,4 +13,4 @@ if [ "x$BOT_SECRET_ID" == "x" ]; then
     exit 1;
 fi
 
-$NODE Index.js
+$NODE index.js
