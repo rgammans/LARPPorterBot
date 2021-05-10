@@ -1,5 +1,6 @@
 "use strict";
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+let dedent = require('dedent-js');
 module.exports = class Item {
     constructor(name, utility) {
         if (typeof(name) === "string") {
@@ -14,10 +15,10 @@ module.exports = class Item {
         var newName = this.findValidName(infoItem.heading, 0);
         if (newName !== infoItem.heading) {
             this.utility.sendMsg(
-                msg.channel, 
-                `WARNING: Multiple entries found for info ${infoItem.heading} \
-                 or info heading invalid for item ${this.nameID}; will create \
-                 new info item under name ${newName}`
+                msg.channel, dedent(`
+                 WARNING: Multiple entries found for info ${infoItem.heading}
+                 or info heading invalid for item ${this.nameID}; will create
+                 new info item under name ${newName}`).replace(/\n/g,' ')
                 );
             infoItem.heading = newName;
         }
