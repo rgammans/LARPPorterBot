@@ -29,11 +29,12 @@ module.exports = class Character {
         this.stealCount = 0;
         this.preventCount = 0;
         this.location = undefined;
+        this.roles = [];
         var nameFound = false;
         var cashError = false;
         var stealError = false;
         var preventError = false;
-        var codeFlag = false;
+        var pushFn;
         for (var jObj in jsonIn) {
             switch (jObj.toLowerCase()) {
                 case 'name':
@@ -76,17 +77,16 @@ module.exports = class Character {
                     this.preventCount = Math.floor(this.preventCount);
                     break;
                 default:
+                    pushFn = null;
                     if (jObj.toLowerCase().includes("code")) {
-                        codeFlag = true;
+                        pushFn =  name =>  this.itemCodes.push(typeof(name) === "string" ? name.replace(" ", "_") : name);
                     } else if (jObj.toLowerCase().includes("item")) {
-                        codeFlag = false;
+                        pushFn = name => this.items.push(new Item(name, this.utility));
+                    } else if (jObj.toLowerCase().includes("role")) {
+                        pushFn =  name =>  this.roles.push(typeof(name) === "string" ? name.replace(" ", "_") : name);
                     }
-                    if (jsonIn[jObj] !== "" && jsonIn[jObj] !== null && jsonIn[jObj] !== undefined) {
-                        if (codeFlag) {
-                            this.itemCodes.push(typeof(jsonIn[jObj]) === "string" ? jsonIn[jObj].replace(" ", "_") : jsonIn[jObj]);
-                        } else {
-                            this.items.push(new Item(jsonIn[jObj], this.utility));
-                        }
+                    if (pushFn && jsonIn[jObj] !== "" && jsonIn[jObj] !== null && jsonIn[jObj] !== undefined) {
+                        pushFn(jsonIn[jObj]);
                     }
             }
         }
@@ -142,6 +142,16 @@ module.exports = class Character {
                 } catch {
                     e => this.utility.sendMsg(msg.channel, "Please change your nickname to " + this.description)
                 };
+                //Assign roles.
+                for (let roleName of this.roles ){
+                    var role = this.guild.roles.cache.find(role => role.name === roleName);
+                    if(role===undefined) {
+                        msg.reply("Error assigning role " + roleName);
+                    } else {
+                        let rv = msg.member.roles.add(role);
+                        console.log(`${role} -> ${rv}`);
+                    }
+                }
             } else {
                 this.userID.push(memberID);
             }
