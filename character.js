@@ -619,7 +619,8 @@ module.exports = class Character {
 
         this.items.splice(itemIndex, 1);
         // TODO : Send to the GMs channels.
-        this.utility.sendMsg(msg.channel, `${item.nameID} has been eaten. ${eatenMsg}`);
+        this.utility.sendMsg(msg.channel, `${item.nameID} has been eaten.`);
+        this.utility.sendMsg(this.channel, `eat ${item.nameID}: ${eatenMsg}`);
     }
     removeItem(msg, msgInfo2) {
         var itemIndex = this.items.findIndex(x => x.nameID.toLowerCase() === msgInfo2.toLowerCase());
