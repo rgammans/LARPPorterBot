@@ -229,6 +229,9 @@ module.exports = class GameManager {
     }
 
     findbyVoice(voiceName, ) {
+        if (voiceName == undefined) {
+            return null;
+        }
         voiceName = voiceName.toLowerCase();
         return this.locations.find(x => x.voiceAlias.toLowerCase() === voiceName);
     }
