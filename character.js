@@ -487,8 +487,10 @@ module.exports = class Character {
         }
         if (this.location.items.find(x => x.nameID.toLowerCase() === msgInfo1.toLowerCase())) {
             this.location.giveAllow(msg, this, msgInfo1, false, true);
-        } else {
+        } else if (! Number.isNaN(Number(msgInfo1))){
             this.location.pay(msg, this, msgInfo1);
+        } else {
+            this.utility.sendMsg(msg.channel, "Error: Can't understand/find this as item or cash amount");
         }
     }
     drop(msg, msgInfo1) {
@@ -502,8 +504,10 @@ module.exports = class Character {
         }
         if (this.items.find(x => x.nameID.toLowerCase() === msgInfo1.toLowerCase())) {
             this.giveAllow(msg, this.location, msgInfo1, false, true, this.channel);
-        } else {
+        } else if (! Number.isNaN(Number(msgInfo1))){
             this.pay(msg, this.location, msgInfo1, this.channel);
+        } else {
+            this.utility.sendMsg(msg.channel, "Error: Can't understand/find this as item or cash amount");
         }
     }
     examine(msg, msgInfo1, msgInfo2) {
