@@ -16,7 +16,7 @@ client.on('message', msg => {
 client.on('voiceStateUpdate', (oldState,newState) => {
     //console.log(oldState, newState)
     let locName = newState.channel && newState.channel.name;
-    let pc = gameManager.findObject(newState.member.nickname, true, false,false,true);
+    let pc = gameManager.findCharacterFromUser(newState.member);
     let loc = gameManager.findbyVoice(locName);
     if (pc != undefined && loc != undefined && pc.location !== loc) {
         pc.move(null,loc);

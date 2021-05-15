@@ -212,7 +212,7 @@ module.exports = class GameManager {
     checkGM(msg, allowPlayer) {
         var char = undefined;
         if (allowPlayer) {
-            char = this.characters.find(x => x.userID === msg.author.id);
+            char = this.findCharacterFromUser(msg.author);
             if (char !== undefined) {
                 return char;
             }
@@ -234,6 +234,9 @@ module.exports = class GameManager {
         }
         voiceName = voiceName.toLowerCase();
         return this.locations.find(x => x.voiceAlias.toLowerCase() === voiceName);
+    }
+    findCharacterFromUser(member) {
+        return this.characters.find(x => x.userID === member.id);
     }
 
     findObject(objectName, includeCharacters, includeLocations, includeItems, returnItem) {
@@ -480,7 +483,7 @@ module.exports = class GameManager {
         if (this.checks(msg, true, true, false, false, false) === false) {
             return;
         }
-        if (this.characters.find(x => x.userID === msg.author.id)) {
+        if (this.findCharacterFromUser(msg.author)) {
             this.utility.sendMsg(msg.channel, "ERROR: You already have a character!");
             return;
         }
