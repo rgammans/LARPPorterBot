@@ -691,7 +691,8 @@ module.exports = class GameManager {
             }
             msgInfo1 = msgInfo2;
         }
-        findObj.eat(msg, msgInfo1);
+        let gmLoc = this.findObject("gm", false, true, false, false);
+        findObj.eat(msg, msgInfo1, gmLoc);
     }
  
     drop(msg, msgInfo1, msgInfo2) {

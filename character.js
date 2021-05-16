@@ -604,7 +604,7 @@ module.exports = class Character {
             this.msgManager.setItems(this.items, this.cash);
         }
     }
-    eat(msg, msgInfo2) {
+    eat(msg, msgInfo2, gmLoc) {
         if (this.locTrue) {
             console.log("Somehow a location is eating an item");
             return;
@@ -622,9 +622,18 @@ module.exports = class Character {
         }
 
         this.items.splice(itemIndex, 1);
-        // TODO : Send to the GMs channels.
         this.utility.sendMsg(msg.channel, `${item.nameID} has been eaten.`);
         this.utility.sendMsg(this.channel, `eat ${item.nameID}: ${eatenMsg}`);
+        //  Send to the GMs channels.
+        this.utility.sendMsg(this.utility.channel, `${this.nameID} has eaten ${item.nameID}`);
+
+        // THe Bot implicitly uses the GM location as a Limob for   
+        // items, let move anythin eaten to there.So the GMs can recover it 
+        // if need be
+        if (gmLoc) {
+            gmLoc.items.push(item)
+        }
+
     }
     removeItem(msg, msgInfo2) {
         var itemIndex = this.items.findIndex(x => x.nameID.toLowerCase() === msgInfo2.toLowerCase());
