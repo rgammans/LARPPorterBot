@@ -77,6 +77,9 @@ module.exports = class GameManager {
                 case 'look':
                     this.view(msg, msgInfo1, msgInfo2, msgInfo3);
                     break;
+                case 'room':
+                    this.look_at_room(msg, msgInfo1, msgInfo2, msgInfo3);
+                    break;
                 case 'show':
                 case 'lend':
                     this.show(msg, msgInfo1, msgInfo2, msgInfo3);
@@ -555,6 +558,22 @@ module.exports = class GameManager {
             }
         }
         findObj.leave(msg);
+    }
+    look_at_room(msg, msgInfo1, msgInfo2, msgInfo3) {
+        var findObj = this.checks(msg, true, false, false, true, true);
+        if (findObj === false) {
+            return;
+        }
+        if (findObj === true) {
+             //is a gm.
+             findObj = this.findObject(msgInfo1, false, true, false, true);
+        }
+        if (findObj && findObj.location) {
+            findObj.location.look_at_room();
+        } else{
+            this.utility.sendMsg(msg.channel,"Location not identified");
+        }
+
     }
     view(msg, msgInfo1, msgInfo2, msgInfo3) {
         var findObj = this.checks(msg, true, false, false, true, true);

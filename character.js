@@ -563,6 +563,14 @@ module.exports = class Character {
             this.utility.sendMsg(channel, this.nameID + " has given " + msgInfo2.toLocaleString('en-GB') + " to " + payee.nameID);
         }
     }
+    async look_at_room() { 
+        if (! this.msgManager) {
+            console.log("invoked room on char/location without a message manager")
+        }
+        this.msgManager.setDescription(this.description);
+        this.msgManager.setItems(this.items, this.cash);
+    }
+
     async getPaid(msg, amount) {
         this.cash = this.cash + amount;
         if (this.channel !== undefined) {

@@ -4,6 +4,7 @@ exports.makeHelpText1 = function(prefix) {
     helptext = helptext + "**" + prefix + "release**: Let go of your character. Your private channel will disappear.\n";
     helptext = helptext + "**" + prefix + "gm *message***: Send a message to the GM channel. The bot will tell them who sent it.\n";
     helptext = helptext + "**" + prefix + "cast**: View list of characters currently in the game.\n";
+    helptext = helptext + "**" + prefix + "room**: Redisplay the room description and public contents.\n";
     helptext = helptext + "**" + prefix + "view**: View current inventory. You will see coded info your character has access to.\n";
     helptext = helptext + "**" + prefix + "view *ItemName/Cash/Code/Ability***: View a single item/cash/code/ability counts.\n";
     helptext = helptext + "**" + prefix + "show *IDName ItemName***: Show someone an item. They have 3 minutes to view it.\n";
