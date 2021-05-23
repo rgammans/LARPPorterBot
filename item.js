@@ -89,7 +89,9 @@ module.exports = class Item {
         var msgContent = "";
         for (var i = 0; i < this.infos.length; i++) {
             if (gmFlag || this.infos[i].visible && showPublic || itemCodes.find(x => x.toLowerCase() === this.infos[i].heading.toLowerCase())) {
-                msgContent = msgContent + "\n*" + this.infos[i].heading + (gmFlag ? " [Visible: " + this.infos[i].visible + "]" : "") + "*: " + this.infos[i].text;
+                if (this.infos[i].text) {
+                    msgContent = msgContent + "\n*" + this.infos[i].heading + (gmFlag ? " [Visible: " + this.infos[i].visible + "]" : "") + "*: " + this.infos[i].text;
+                }
             }
         }
         msgContent = "**" + this.nameID + "**" + (msgContent === "" ? " - No information found" : msgContent);
