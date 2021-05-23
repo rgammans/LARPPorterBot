@@ -17,7 +17,9 @@ module.exports = class MSGManager {
                 var msgs = await this.channel.messages.fetch();
                 msgs = msgs.filter(m => !this.descriptionMsgs.find(x => x === m) && !this.itemsMsgs.find(x => x === m) && (Date.now() - m.createdTimestamp > 300000));
                 msgs.each(m => {
-                    this.utility.deleteMsg(m);
+                    if (!m.pinned) {
+                        this.utility.deleteMsg(m);
+                    }
                 });
                 setTimeout(this.deleteMsgs.bind(this), 60000);
             }
