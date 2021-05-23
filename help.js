@@ -25,32 +25,32 @@ exports.makeHelpText2 = function(prefix) {
     helptext = helptext + "**" + prefix + "save**: Save the current configuration to csv files to be loaded next time the bot is run. \n";
     helptext = helptext + "**" + prefix + "run**: Turns on character claiming when you are ready to start the game.\n";
     helptext = helptext + "**" + prefix + "stop**: Deletes private character channels and switches off character claiming. \n";
-    helptext = helptext + "***Character Commands***: GMs can access any of the character/location commands by adding in the character ID name; e.g. " + prefix + "give IDName1 IDName2 ItemName.\n";
-    helptext = helptext + "**" + prefix + "msg *IDName message***: Send a message to the specified character channel.\n";
+    helptext = helptext + "***Character Commands***: GMs can access any of the character/location commands by adding in the character ID name; e.g. " + prefix + "give CharId1 CharId2 ItemName.\n";
+    helptext = helptext + "**" + prefix + "msg *CharId message***: Send a message to the specified character channel.\n";
     helptext = helptext + "**" + prefix + "view *ObjectName code/all***: View the details of a character/location/item. Use 'all' to also view invisible info. Omit item name to see list of characters/locations.\n";
     helptext = helptext + "**" + prefix + "find *ItemName***: Use this to find out which character currently has a specified item.\n";
-    helptext = helptext + "**" + prefix + "find *IDName***: Use this to find out which location a character is currently in.\n";
-    helptext = helptext + "**" + prefix + "codes *IDName***: View list of information codes a character has access to\n";
+    helptext = helptext + "**" + prefix + "find *CharId***: Use this to find out which location a character is currently in.\n";
+    helptext = helptext + "**" + prefix + "codes *CharId***: View list of information codes a character has access to\n";
     return helptext;
 }
 exports.makeHelpText3 = function(prefix) {
     var helptext = "**Edit Commands (GM Only)**:\n"
-    helptext = helptext + "**" + prefix + "addchar *NewIDName***: Create new character (must be unique name, no spaces.)\n";
-    helptext = helptext + "**" + prefix + "addloc *NewIDName***: Create new location (must be unique name, no spaces.)\n";
-    helptext = helptext + "**" + prefix + "additem *IDName NewItemName***: Creates new item in the inventory of the character or location. (Name must be unique name, and without spaces).\n";
+    helptext = helptext + "**" + prefix + "addchar *NewCharId***: Create new character (must be unique name, no spaces.)\n";
+    helptext = helptext + "**" + prefix + "addloc *NewCharId***: Create new location (must be unique name, no spaces.)\n";
+    helptext = helptext + "**" + prefix + "additem *CharId NewItemName***: Creates new item in the inventory of the character or location. (Name must be unique name, and without spaces).\n";
     helptext = helptext + "**" + prefix + "addinfo *ItemName NewInfoName true/false text***: Adds new info to an item. If visibility is false, the info name is also the access code. (Name cannot contain spaces.\n";
     helptext = helptext + "**" + prefix + "delete *ObjectName***: Deletes specified character, location, or item from the game (including their inventory).\n";
     helptext = helptext + "**" + prefix + "deleteinfo *ItemName InfoName***: Deletes item information. e.g. " + prefix + "deleteinfo map Info1. \n";
     helptext = helptext + "**" + prefix + "rename *ObjectName NewObjectName***: Changes the ID name of a character, location, or item. (Name must be unique name, and without spaces).\n";
-    helptext = helptext + "**" + prefix + "nickname *IDName NewNickname***: Sets the character nickname. When a player claims this character, their Discord nickname will be set to this. Can include spaces.\n";
-    helptext = helptext + "**" + prefix + "description *IDName NewDescription***: Sets the location description. This will be posted in the location channel for players to read.\n";
-    helptext = helptext + "**" + prefix + "cash *IDName Amount***: Sets the cash amount in a character or location inventory.\n";
+    helptext = helptext + "**" + prefix + "nickname *CharId NewNickname***: Sets the character nickname. When a player claims this character, their Discord nickname will be set to this. Can include spaces.\n";
+    helptext = helptext + "**" + prefix + "description *CharId NewDescription***: Sets the location description. This will be posted in the location channel for players to read.\n";
+    helptext = helptext + "**" + prefix + "cash *CharId Amount***: Sets the cash amount in a character or location inventory.\n";
     helptext = helptext + "**" + prefix + "renameinfo *ItemName InfoName NewInfoName***: Sets heading or codeword of a piece of item info. Note: heading cannot contain spaces.\n";
     helptext = helptext + "**" + prefix + "visible *ItemName InfoName true/false***: Sets the visiblity of the specified info.\n";
     helptext = helptext + "**" + prefix + "text *ItemName InfoName detail***: Set the text associated with a piece of item info.\n";
-    helptext = helptext + "**" + prefix + "steal *IDName AbilityCount***: Set the no. of times a character can 'steal'.\n";
-    helptext = helptext + "**" + prefix + "prevent *IDName AbilityCount***: Set the no. of times a character can prevent theft.\n";
-    helptext = helptext + "**" + prefix + "addcode *IDName InfoName***: Add code to named character's code list to allow them to view hidden info with the same name.\n";
-    helptext = helptext + "**" + prefix + "deletecode *IDName InfoName***: Remove item code from a character info access list.";
+    helptext = helptext + "**" + prefix + "steal *CharId AbilityCount***: Set the no. of times a character can 'steal'.\n";
+    helptext = helptext + "**" + prefix + "prevent *CharId AbilityCount***: Set the no. of times a character can prevent theft.\n";
+    helptext = helptext + "**" + prefix + "addcode *CharId InfoName***: Add code to named character's code list to allow them to view hidden info with the same name.\n";
+    helptext = helptext + "**" + prefix + "deletecode *CharId InfoName***: Remove item code from a character info access list.";
     return helptext;
 }
