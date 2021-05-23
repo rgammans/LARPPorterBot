@@ -469,7 +469,12 @@ module.exports = class GameManager {
         this.utility.sendMsg(msg.channel, "Message sent to GM channel");
     }
     sendCharMsg(msg, msgInfo1, msgInfo2) {
+        var that =this;
         if (this.checks(msg, true, false, false, true, false) === false) {
+            return;
+        }
+        if (msgInfo1 === "all") {
+            this.characters.map(chr => that.sendCharMsg(msg,chr.nameID,msgInfo2));
             return;
         }
         var char = this.findObject(msgInfo1, true, false, false, false);
