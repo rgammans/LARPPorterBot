@@ -139,8 +139,9 @@ module.exports = class Character {
                 this.userOldName = msg.member.nickname;
                 try {
                     await msg.member.setNickname(this.description)
-                } catch {
-                    e => this.utility.sendMsg(msg.channel, "Please change your nickname to " + this.description)
+                } catch (e) {
+                    console.log(`   failed to set nick - ${this.description}: ${e}`)
+                    this.utility.sendMsg(msg.member, "Please change your nickname to " + this.description)
                 };
                 //Assign roles.
                 for (let roleName of this.roles ){
