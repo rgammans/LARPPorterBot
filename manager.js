@@ -7,7 +7,7 @@ const Help = require('./help.js');
 const Utility = require("./utility.js");
 
 module.exports = class GameManager {
-    constructor() {
+    constructor(logger) {
         this.initialised = false;
         this.GMChannel = undefined;
         this.charparObj = undefined;
@@ -18,7 +18,7 @@ module.exports = class GameManager {
         this.prefix = "_";
         this.characters = [];
         this.locations = [];
-        this.utility = new Utility();
+        this.utility = new Utility(logger);
         this.running = false;
     }
     msgHandler(msg, clientID) {

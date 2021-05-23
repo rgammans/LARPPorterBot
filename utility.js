@@ -7,7 +7,8 @@ const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const jschardet = require('jschardet');
 
 module.exports = class Utility {
-    constructor() {
+    constructor(log) {
+        this.log = log;
         this.channel = undefined;
     }
     setChannel(mainChannel) {
@@ -30,6 +31,9 @@ module.exports = class Utility {
         return msg.member === undefined ? msg.author.username : (msg.member.nickname === null ? msg.author.username : msg.member.nickname);
     }
     async sendMsg(channel, newContent, count) {
+        if (this.log) {
+            this.log.log_message(channel,{username:"TheLuggage"},newContent);
+        }
         newContent = this.escapeMarkdown(newContent);
         var returnArr = [];
         if (newContent.length > 2000) {

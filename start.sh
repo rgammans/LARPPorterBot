@@ -6,6 +6,7 @@
 
 ##--- Change the line Below ---
 #export BOT_SECRET_ID=
+export LOGFILE=`pwd`/botlogs.txt
 NODE=/usr/bin/nodejs
 
 if [ "x$BOT_SECRET_ID" == "x" ]; then

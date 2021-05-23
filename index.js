@@ -1,13 +1,22 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const GameManager = require('./manager.js');
-let gameManager = new GameManager();
+const Logger = require('./nodelog.js');
+
+var log = null;
+if (process.env.LOGFILE) {
+    log = new Logger(process.env.LOGFILE);
+}
+let gameManager = new GameManager(log);
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 });
 
 client.on('message', msg => {
+    if (log) {
+        log.log_message(msg.channel,msg.author,msg.content);
+    }
     if (msg.author.id === client.user.id || msg.channel.type === "dm") {
         return;
     }
