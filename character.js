@@ -595,7 +595,7 @@ module.exports = class Character {
                 try {
                     await member.setNickname(this.description)
                 } catch {
-                    e => this.utility.sendMsg(this.channel, "Please change your nickname to " + this.description);
+                    this.utility.sendMsg(this.channel, "Please change your nickname to " + this.description);
                 }
             });
         }
