@@ -304,6 +304,7 @@ module.exports = class Character {
         if (this.location !== undefined) {
             if (msg.channel === this.location.channel) {
                 this.location.view(msg, msgInfo1, msgInfo2, gmFlag, this.channel, this.itemCodes);
+                this.utility.sendMsg(msg.channel, this.nameID + " searches the area. (See private character channel for what you find)");
                 return;
             }
         }
