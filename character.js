@@ -161,7 +161,9 @@ module.exports = class Character {
                 this.location.claim(msg, memberID);
             }
             if (this.channel.type !== 'dm') {
-                this.utility.sendMsg(this.channel, "<@" + this.userID + "> " + (this.locTrue ? " You have moved to location " : "You have claimed character ") + this.nameID);
+                this.utility.sendMsg(this.channel, "<@" + memberID + "> " + (this.locTrue ? 
+                                                       " You have moved to location " :
+                                                       "You have claimed character ") + this.nameID);
             }
         }
     }
