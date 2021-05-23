@@ -521,7 +521,7 @@ module.exports = class GameManager {
         if (findObj === true) {
             findObj = this.findObject(msgInfo1, true, false, false, false);
             if (findObj === undefined) {
-                this.utility.sendMsg(msg.channel, "Error: Canot find character " + msgInfo1);
+                this.utility.sendMsg(msg.channel, "Error: Cannot find character " + msgInfo1);
                 return;
             }
             msgInfo1 = msgInfo2;
@@ -532,7 +532,7 @@ module.exports = class GameManager {
         }
         var loc = this.findObject(msgInfo1, false, true, false, false);
         if (loc === undefined) {
-            this.utility.sendMsg(msg.channel, "Error: Canot find location " + msgInfo1);
+            this.utility.sendMsg(msg.channel, "Error: Cannot find location " + msgInfo1);
             return;
         }
         findObj.move(msg, loc);
@@ -545,7 +545,7 @@ module.exports = class GameManager {
         if (findObj === true) {
             findObj = this.findObject(msgInfo1, true, false, false, false);
             if (findObj === undefined) {
-                this.utility.sendMsg(msg.channel, "Error: Canot find character " + msgInfo1);
+                this.utility.sendMsg(msg.channel, "Error: Cannot find character " + msgInfo1);
                 return;
             }
         }
