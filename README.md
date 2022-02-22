@@ -4,7 +4,7 @@ To download the code from Github, just click 'Code' followed by 'Download Zip'
 
 Players claim characters and get a private channel to view their inventory. They can view cash or items, give or show things to each other, and visit locations. Characters may also have a limited number of uses of a stealing ability or an ability to prevent thefts.
 
-Items may have both public descriptions and hidden information only accessible by characters with the correct codes, as set by the GMs.
+Items may have both public descriptions and hidden information only accessible by characters with the correct codes, as set by the GMs. blurb
 
 Edit commands - accessible only to users with a 'GM' role - allow GMs to create or edit characters, locations, and items. The game setup can be loaded in from csv files, or entered in using bot commands and then saved to csv files for later use.
 
