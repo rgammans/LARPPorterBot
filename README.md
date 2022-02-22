@@ -4,7 +4,7 @@ To download the code from Github, just click 'Code' followed by 'Download Zip'
 
 Players claim characters and get a private channel to view their inventory. They can view cash or items, give or show things to each other, and visit locations. Characters may also have a limited number of uses of a stealing ability or an ability to prevent thefts.
 
-Items may have both pulic descriptions and hidden information only accessible by characters with the correct codes, as set by the GMs.
+Items may have both public descriptions and hidden information only accessible by characters with the correct codes, as set by the GMs.
 
 Edit commands - accessible only to users with a 'GM' role - allow GMs to create or edit characters, locations, and items. The game setup can be loaded in from csv files, or entered in using bot commands and then saved to csv files for later use.
 
@@ -15,11 +15,11 @@ _Note: the bot is intended for use in only a single server at any given time. An
 If you want to use this code for your game, you will need to create your own bot application. You will need to take the following steps:
 1. Copy this code repository into the folder you want to run it from
 2. Go to https://discord.com/developers/applications
-3. Click on 'New Application' in thr top right of the Applicatipns list
+3. Click on 'New Application' in the top right of the Applicatipns list
 4. Name it and set the icon for your bot
 5. In your new application, go to the 'Bot' section and click 'Add Bot'. Click the button to confirm that you want to create a bot.
 6. Click on 'Click to Reveal Token' and then copy this. **WARNING**: DO NOT SHARE THIS TOKEN WITH ANYONE ELSE; it could be used to hack into your bot. 
-7. Go to the folder with the code and open start.sh(Linux/Mac) or start.cmd(windows) (you can do this in notepad)
+7. Go to the folder with the code and open start.sh(Linux/Mac) or index.js(windows) (you can do this in notepad)
 8. At the top of the file start.sh (Linux/Mac) , or start.cmd (Windows) look for the line that ##--- Change the line Below ---, remove the leading '#' and paster the token into the liat at the end after the equals sign.
 9. You need some way to install the Javascript libraries; I suggest installing Node from https://nodejs.org/en/download/.  You can then open a Node command prompt and enter "cd [folder address]" with the address of your new folder containing the bot code. This should navigate the command prompt to your folder. You should then enter the command 'npm install' to set up the libraries. You need node v11 or later.
 
