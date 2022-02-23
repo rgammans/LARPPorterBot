@@ -39,7 +39,7 @@ Now that you have a bot, you need to know how to set it running.
 3. This will cause a URL to be generated under the 'scopes' section. Copy that URL and enter it into a web browser to invite the bot into your server. Make sure you've selected the permissions first as in the previous step, otherwise your bot won't be able to do its job!
 4. Go into your server settings and check the role list. To use the bot, you need a role called "GM"; give this to anyone you want to be able to use the GM only bot commands and view the private character channels. Additionally, check that the bot role is higher on the list than any users you want it to be able to effect; I suggest moving it up until only the GM role is higher.
 5. Don't forget to add the bot to any channel you want it to see commands from. The bot assumes the existence of a private GM only channel, determined by wherever you type the setup command; messages intended for GM eyes only are sent here. Additionally, any private character channels will be created under a channel category called 'characters', and similarly for locations. However, the bot will create these categories if they don't exist, so you don't need to worry about this.
-6. Now you just need some way to run the code whenever you want the bot to be working. If you already installed Node earlier, you can use this. Open a Node command prompt and enter "cd [folder address]" with the address of your new folder containing the bot code. Finally, enter the command 'Node Index' to run the Index file.
+6. Now you just need some way to run the code whenever you want the bot to be working. If you already installed Node earlier, you can use this. Open a Node command prompt and enter "cd [folder address]" with the address of your new folder containing the bot code. Finally, enter the command 'Node Index' to run the Index file and launch the bot.
 
 Once the bot is already on your server, you only need to follow **step 6** again to set the bot going. Note that if the code is not currently being run somewhere, the bot won't function, and it will forget any setup or any non-saved changes in the game configuration. You can just run it on your own computer if you're happy with it only working when you're online, otherwise you'll need to find a server to keep it going.
 
@@ -58,13 +58,24 @@ While it is possible to set up your game using the bot commands, you will likely
          Name    Description     Cash    Item1   Item2   ...
      
      As with the characters file, the 'Name' field contains the location's ID. This must be unique (and unique from the character and item names) and without spaces. 'Description' is a field for text about the location; this will be posted to the top of the location channel so that players can see it if they move there during the game. 'Cash' indicates the amount of cash that is in this location at the start of the game. The 'Item' fields contain the ID names of the items that are in the location at the start of the game. As with the characters file, the Item columns can extend for as many columns as necessary, and must match the ID names in the items.csv file. Item names must be unique and contain no spaces. Note that the only location characters can't move to is one named 'GM'; hidden items can be stored here until the GM wants to allocate them during the game.
+     
+Each voice channel on your server should have a corresponding row in locations.csv. This will allow the bot to track when players move between channels.
 
 3.  _**items.csv**_ This file contains the information associated with the items. The fields are:
         
           ItemName    Heading     Visible     Text
     
-     The first field 'ItemName' is the ID name of the item which this piece of information is associated with. Note that if the bot cannot locate an item with this name, it will create a new one and move it to a location called 'GM'. This is the only location that players can't move their characters into. 'Heading' is the name of this piece of information if it is visible (e.g. 'description') or the code required to access it if it is invisible (e.g. "SecretInfoJ8"). 'Visible' should be set to either TRUE or FALSE. If TRUE, then the information will be viewable by any character who examines the item. If FALSE, then only characters that possess the heading code will be able to see this information. Finally, 'Text' contains the details of the information which will be displayed.
+     The first field 'ItemName' is the ID name of the item which this piece of information is associated with. Note that if the bot cannot locate an item with this name, it will create a new one and move it to a location called 'GM' (it will report this as an error message). This is the only location that players can't move their characters into. 'Heading' is the name of this piece of information if it is visible (e.g. 'description') or the code required to access it if it is invisible (e.g. "SecretInfoJ8"). 'Visible' should be set to either TRUE or FALSE. If TRUE, then the information will be viewable by any character who examines the item. If FALSE, then only characters that possess the heading code will be able to see this information. Finally, 'Text' contains the details of the information which will be displayed.
 
+An item may have multiple rows – one for the description visible to all, and other rows with secret information only for those characters with the correct codes.
+
+
+## Tips
+Create simple names for people and items – they will need to type them.
+Don’t use quotation marks in descriptions
+Double check spelling of everything
+Tell your players not to change their server nicknames – the bot will do this automatically.
+Have a second Discord login on another device so you can test each character and location.
 
 ## Using the Bot: Players
 This information can be accessed using the command _help. 
