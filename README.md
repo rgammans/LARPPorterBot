@@ -23,6 +23,14 @@ If you want to use this code for your game, you will need to create your own bot
 8. At the top of the file start.sh (Linux/Mac) , or start.cmd (Windows) look for the line that ##--- Change the line Below ---, remove the leading '#' and paster the token into the liat at the end after the equals sign.
 9. You need some way to install the Javascript libraries; I suggest installing Node from https://nodejs.org/en/download/.  You can then open a Node command prompt and enter "cd [folder address]" with the address of your new folder containing the bot code. This should navigate the command prompt to your folder. You should then enter the command 'npm install' to set up the libraries. You need node v11 or later.
 
+## Set up your game server
+If you use a dedicated Discord server for your game, this is how you need to set it up.
+1. Create a GM role
+2. Set up a private gm text channel. (You’ll run the bot from this to keep your commands private.)
+3. Set up voice channels for people to congregate and roleplay in
+4. If you are using private channels (for areas that not everyone knows about), create roles for those channels, and make those channels private. Edit the channel to allow the roles to Move Members (so they can drag members into the channel—otherwise the GM will have to do that).
+After your players have claimed their roles, manually assign the roles so that the characters can see their private channels. You will need to manage this manually – the bot will not manage these.
+Don’t set up text channels for characters or locations – the bot will do that.
 
 ## Running the Bot
 Now that you have a bot, you need to know how to set it running.
