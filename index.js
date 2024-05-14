@@ -1,5 +1,12 @@
 const Discord = require('discord.js');
-const client = new Discord.Client();
+const client = new Discord.Client({
+    intents: [
+        Discord.Intents.FLAGS.GUILDS,
+        Discord.Intents.FLAGS.GUILD_MESSAGES,
+        Discord.Intents.FLAGS.GUILD_VOICE_STATES,
+        Discord.Intents.FLAGS.DIRECT_MESSAGES,
+        Discord.Intents.FLAGS.MESSAGE_CONTENT
+    ]});
 const GameManager = require('./manager.js');
 const Logger = require('./nodelog.js');
 
@@ -13,7 +20,7 @@ client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 });
 
-client.on('message', msg => {
+client.on('messageCreate', msg => {
     if (log) {
         log.log_message(msg.channel,msg.author,msg.content);
     }
