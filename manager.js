@@ -285,16 +285,16 @@ module.exports = class GameManager {
         this.guild = msg.guild;
         this.GMChannel = msg.channel;
         this.utility.setChannel(this.GMChannel);
-        if (!this.guild.me.hasPermission("MANAGE_CHANNELS")) {
+        if (!this.guild.members.me.permissions.has("MANAGE_CHANNELS")) {
             this.utility.sendMsg(msg.channel, "WARNING: I can't create channels as I don't have the 'Manage Channels' permission");
         }
-        if (!this.guild.me.hasPermission("MANAGE_ROLES")) {
+        if (!this.guild.members.me.permissions.has("MANAGE_ROLES")) {
             this.utility.sendMsg(msg.channel, "WARNING: I can't add people to private channel access as I don't have the 'Manage Roles' permission");
         }
-        if (!this.guild.me.hasPermission("MANAGE_NICKNAMES")) {
+        if (!this.guild.members.me.permissions.has("MANAGE_NICKNAMES")) {
             this.utility.sendMsg(msg.channel, "WARNING: I can't name people according to their characters; I don't have the 'Manage Nicknames' permission");
         }
-        if (!this.guild.me.hasPermission("MANAGE_MESSAGES")) {
+        if (!this.guild.members.me.permissions.has("MANAGE_MESSAGES")) {
             this.utility.sendMsg(msg.channel, "WARNING: I can't delete old information in location channels; I don't have the 'Manage Messages' permission");
         }
         this.charparObj = this.guild.channels.cache.find(c => c.name == "Characters" && c.type == "category");
