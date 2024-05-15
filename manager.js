@@ -5,6 +5,7 @@ const Character = require("./character.js");
 const Item = require("./item.js");
 const Help = require('./help.js');
 const Utility = require("./utility.js");
+const { Constants, GuildChannelManager } = require('discord.js');
 
 module.exports = class GameManager {
     constructor(logger) {
@@ -297,23 +298,26 @@ module.exports = class GameManager {
         if (!this.guild.members.me.permissions.has("MANAGE_MESSAGES")) {
             this.utility.sendMsg(msg.channel, "WARNING: I can't delete old information in location channels; I don't have the 'Manage Messages' permission");
         }
-        this.charparObj = this.guild.channels.cache.find(c => c.name == "Characters" && c.type == "category");
-        if (this.charparObj === undefined) {
-            try {
-                this.charparObj = await this.guild.channels.create("Characters", {
-                    type: 'category'
-                });
-            } catch {};
-        }
-        this.locparObj = this.guild.channels.cache.find(c => c.name == "Locations" && c.type == "category");
-        if (this.locparObj === undefined) {
-            try {
-                this.locparObj = await this.guild.channels.create("Locations", {
-                    type: 'category'
-                });
-            } catch {};
-        }
+        this.charparObj = await this.ensureCategory("Characters");
+        this.locparObj = await this.ensureCategory("Locations");
         this.utility.readFile(msg, './csvs/characters.csv', this.initCharacters, this, [msg], true);
+    }
+
+    async ensureCategory(category_name) {
+        var parObj = this.guild.channels.cache.find(c => c.name == category_name && c.type == "GUILD_CATEGORY");
+        if (parObj === undefined) {
+            try {
+                parObj = await this.guild.channels.create(
+                    category_name, 
+                    {
+                        type: Constants.ChannelTypes.GUILD_CATEGORY
+                    }
+                );
+            } catch(e) {
+                console.log(`Unexpected exception: ${e}`)
+             };
+        }
+        return parObj
     }
 
     initCharacters(msg, fileData) {
@@ -334,7 +338,8 @@ module.exports = class GameManager {
         }
         this.utility.readFile(msg, './csvs/locations.csv', this.initLocations, this, [msg], true);
     }
-    async initLocations(msg, fileData) {
+
+    initLocations(msg, fileData) {
         if (fileData.length > 0) {
             if (!fileData[0].hasOwnProperty('Name')) {
                 this.utility.sendMsg(msg.channel, "ERROR: Cannot find 'Name' field for locations.csv");

@@ -1,4 +1,5 @@
 "use strict";
+const { Constants } = require("discord.js");
 const Item = require("./item.js");
 const MSGManager = require("./msgmanager.js");
 
@@ -182,14 +183,15 @@ module.exports = class Character {
         });
         try {
             this.channel = await this.guild.channels.create(this.nameID, {
-                type: 'Text',
+                type: Constants.ChannelTypes.GUILD_TEXT,
                 parent: this.parObj.id,
                 permissionOverwrites: permArr,
             });
-        } catch {
+        } catch (e) {
+            console.log(`failed to create character in category: falling back: ${e}`);
             try {
                 this.channel = await this.guild.channels.create(this.nameID, {
-                    type: 'Text',
+                    type: Constants.ChannelTypes.GUILD_TEXT,
                     permissionOverwrites: permArr,
                 });
             } catch {
