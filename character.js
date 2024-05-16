@@ -247,7 +247,7 @@ module.exports = class Character {
             return;
         }
         try {
-            await this.channel.updateOverwrite(memberID, {
+            await this.channel.permissionOverwrites.edit(memberID, {
                 VIEW_CHANNEL: true
             })
         } catch (e) {
@@ -258,7 +258,7 @@ module.exports = class Character {
     async removePerm(msg, memberID, isStop) {
         if (this.channel.type !== 'dm') {
             try {
-                await this.channel.updateOverwrite(memberID, {
+                await this.channel.permissionOverwrites.edit(memberID, {
                     VIEW_CHANNEL: false
                 })
             } catch {
