@@ -712,7 +712,7 @@ module.exports = class Character {
         this.utility.sendMsg(msg.channel, this.nameID + " now has a theft prevention ability count of " + this.preventCount.toLocaleString('en-GB'));
     }
     viewCodes(msg) {
-        if (this.itemCodes === []) {
+        if (this.itemCodes.length == 0) {
             this.utility.sendMsg(msg.channel, "Character " + this.nameID + " has no secret information codes.");
             return;
         }
