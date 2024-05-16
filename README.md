@@ -18,10 +18,11 @@ If you want to use this code for your game, you will need to create your own bot
 3. Click on 'New Application' in thr top right of the Applicatipns list
 4. Name it and set the icon for your bot
 5. In your new application, go to the 'Bot' section and click 'Add Bot'. Click the button to confirm that you want to create a bot.
-6. Click on 'Click to Reveal Token' and then copy this. **WARNING**: DO NOT SHARE THIS TOKEN WITH ANYONE ELSE; it could be used to hack into your bot. 
-7. Go to the folder with the code and open start.sh(Linux/Mac) or start.cmd(windows) (you can do this in notepad)
-8. At the top of the file start.sh (Linux/Mac) , or start.cmd (Windows) look for the line that ##--- Change the line Below ---, remove the leading '#' and paster the token into the liat at the end after the equals sign.
-9. You need some way to install the Javascript libraries; I suggest installing Node from https://nodejs.org/en/download/.  You can then open a Node command prompt and enter "cd [folder address]" with the address of your new folder containing the bot code. This should navigate the command prompt to your folder. You should then enter the command 'npm install' to set up the libraries. You need node v11 or later.
+6. On the bot set 'Message Content Intent' on.
+7. Click on 'Click to Reveal Token' and then copy this. **WARNING**: DO NOT SHARE THIS TOKEN WITH ANYONE ELSE; it could be used to hack into your bot. 
+8. Go to the folder with the code and open start.sh(Linux/Mac) or start.cmd(windows) (you can do this in notepad)
+9. At the top of the file start.sh (Linux/Mac) , or start.cmd (Windows) look for the line that ##--- Change the line Below ---, remove the leading '#' and paster the token into the liat at the end after the equals sign.
+10. You need some way to install the Javascript libraries; I suggest installing Node from https://nodejs.org/en/download/.  You can then open a Node command prompt and enter "cd [folder address]" with the address of your new folder containing the bot code. This should navigate the command prompt to your folder. You should then enter the command 'npm install' to set up the libraries. You need node v11 or later.
 
 
 ## Running the Bot
