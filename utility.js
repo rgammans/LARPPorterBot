@@ -6,6 +6,10 @@ const iconv = require('iconv-lite');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const jschardet = require('jschardet');
 
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 module.exports = class Utility {
     constructor(log) {
         this.log = log;
@@ -69,12 +73,13 @@ module.exports = class Utility {
     async deleteMsg(msgObj) {
         if (msgObj !== undefined) {
             await Promise.resolve(msgObj).then(async msg => {
-                if (msg.deleted === false && msg.deletable === true) {
+                if (msg.deletable === true) {
                     try {
-                        await msg.delete({
-                            timeout: 100
-                        });
-                    } catch {}
+                        await delay(100);
+                        await msg.delete();
+                    } catch (e) {
+                        console.log(`While deleting messages error: ${e}`);
+                    }
                 }
                 msgObj = undefined;
                 return msgObj;

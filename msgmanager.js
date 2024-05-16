@@ -13,7 +13,10 @@ module.exports = class MSGManager {
     }
     async deleteMsgs() {
         if (this.channel) {
-            if (!this.channel.deleted) {
+            try {
+                // We used to check if the channel was deleted here, but that was removed in
+                // Discord.js v14, and deprecated in vt13. So we just log an error, and we can 
+                // monitor if anyone raises an issue
                 var msgs = await this.channel.messages.fetch();
                 msgs = msgs.filter(m => !this.descriptionMsgs.find(x => x === m) && !this.itemsMsgs.find(x => x === m) && (Date.now() - m.createdTimestamp > 300000));
                 msgs.each(m => {
@@ -22,9 +25,12 @@ module.exports = class MSGManager {
                     }
                 });
                 setTimeout(this.deleteMsgs.bind(this), 60000);
-            }
+            } catch (e) {
+                console.log(`Error: ${e}: if you see a log of these you should probably raise an issue on github and lets us now if there were any problem with message deletion`);
+            } 
         }
     }
+
     async setDescription(description) {
         for (var i = 0; i < this.descriptionMsgs.length; i++) {
             await this.utility.deleteMsg(this.descriptionMsgs[i]);
