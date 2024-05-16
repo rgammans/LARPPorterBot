@@ -250,7 +250,8 @@ module.exports = class Character {
             await this.channel.updateOverwrite(memberID, {
                 VIEW_CHANNEL: true
             })
-        } catch {
+        } catch (e) {
+            console.log(`Cant modify permissions ${e}`);
             this.utility.sendMsg(msg.channel, "ERROR: Could not add user to private channel for " + this.nameID + ". Check with GMs.");
         }
     }
