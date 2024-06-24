@@ -24,15 +24,23 @@ If you want to use this code for your game, you will need to create your own bot
 9. At the top of the file start.sh (Linux/Mac) , or start.cmd (Windows) look for the line that ##--- Change the line Below ---, remove the leading '#' and paster the token into the liat at the end after the equals sign.
 10. You need some way to install the Javascript libraries; I suggest installing Node from https://nodejs.org/en/download/.  You can then open a Node command prompt and enter "cd [folder address]" with the address of your new folder containing the bot code. This should navigate the command prompt to your folder. You should then enter the command 'npm install' to set up the libraries. You need node v11 or later.
 
+## Set up your game server
+If you use a dedicated Discord server for your game, this is how you need to set it up.
+1. Create a GM role
+2. Set up a private gm text channel. (You’ll run the bot from this to keep your commands private.)
+3. Set up voice channels for people to congregate and roleplay in
+4. If you are using private channels (for areas that not everyone knows about), create roles for those channels, and make those channels private. Edit the channel to allow the roles to Move Members (so they can drag members into the channel—otherwise the GM will have to do that).
+After your players have claimed their roles, manually assign the roles so that the characters can see their private channels. You will need to manage this manually – the bot will not manage these.
+Don’t set up text channels for characters or locations – the bot will do that.
 
 ## Running the Bot
 Now that you have a bot, you need to know how to set it running.
 1. The first step is to invite the bot to your game server, if this is the first time you're running the bot on this server. Go to the discord developers applications page again and double-click on the bot's icon to bring up the settings. 
 2. Under '0Auth2', go to the "URL Generator" and click 'bot'. Underneath this, you will see a new list of permissions; select 'Manage Roles', 'Manage Channels', 'Read Messages/View Channels', 'Change Nicknames', 'Manage Nicknames', 'Manage Messages', and 'Send Messages'.
 3. This will cause a URL to be generated under the 'scopes' section. Copy that URL and enter it into a web browser to invite the bot into your server. Make sure you've selected the permissions first as in the previous step, otherwise your bot won't be able to do its job!
-4. Go into your server settings and check the role list. To use the bot, you need a role calld "GM"; give this to anyone you want to be able to use the GM only bot commands and view the private character channels. Additionally, check that the bot role is higher on the list than ay users you want it to be able to effect; I suggest moving it up until only the GM role is higher.
+4. Go into your server settings and check the role list. To use the bot, you need a role called "GM"; give this to anyone you want to be able to use the GM only bot commands and view the private character channels. Additionally, check that the bot role is higher on the list than any users you want it to be able to effect; I suggest moving it up until only the GM role is higher.
 5. Don't forget to add the bot to any channel you want it to see commands from. The bot assumes the existence of a private GM only channel, determined by wherever you type the setup command; messages intended for GM eyes only are sent here. Additionally, any private character channels will be created under a channel category called 'characters', and similarly for locations. However, the bot will create these categories if they don't exist, so you don't need to worry about this.
-6. Now you just need some way to run the code whenever you want the bot to be working. If you already installed Node earlier, you can use this. Open a Node command prompt and enter "cd [folder address]" with the address of your new folder containing the bot code. Finally, enter the command 'Node Index' to run the Index file.
+6. Now you just need some way to run the code whenever you want the bot to be working. If you already installed Node earlier, you can use this. Open a Node command prompt and enter "cd [folder address]" with the address of your new folder containing the bot code. Finally, enter the command 'Node Index' to run the Index file and launch the bot.
 
 Once the bot is already on your server, you only need to follow **step 6** again to set the bot going. Note that if the code is not currently being run somewhere, the bot won't function, and it will forget any setup or any non-saved changes in the game configuration. You can just run it on your own computer if you're happy with it only working when you're online, otherwise you'll need to find a server to keep it going.
 
@@ -44,20 +52,31 @@ While it is possible to set up your game using the bot commands, you will likely
 
         Name    Nickname    Cash     Steal      Prevent     Code1   Code2   ...     Item1       Item2   ....
     
-    The 'Name' field contains an ID tag associated with the character. Note that these must be unique and without spaces. 'Nickname' is the long name; the bot will switch users' nicknames on the server to match. 'Cash' is the amount of money the character has at the start of the game. 'Steal' indicates the number of times the character can use the stealing ability. Similarly, 'Prevent' is the number of times a character is able to choose to thwart a theft attempt against them. The 'Code' fields indicate which hidden information the character has access to; for example, if they have an item called 'Map' which contains hidden invisible under the title 'Rum', then the character is only able to view that if they have access to the 'Rum' code. You can have as many Code fields as you like. The 'Item' fields are the ID names of the items that the character is carrying. These need to match up with the item names used in the items.csv file. As with the character name, the item name must contain no spaces, and must be unique. Items, characters, and locations must also be unique from each other. As with the codes, you can have as many 'Item' columns as you need.
+    The 'Name' field contains an ID tag associated with the character. Note that these must be unique and without spaces. 'Nickname' is the long name; the bot will switch users' nicknames on the server to match. 'Cash' is the amount of money the character has at the start of the game. 'Steal' indicates the number of times the character can use the stealing ability. Similarly, 'Prevent' is the number of times a character is able to choose to thwart a theft attempt against them. The 'Code' fields indicate which hidden information the character has access to; for example, if they have an item called 'Map' which contains hidden information that is invisible under the title 'Rum', then the character is only able to view that if they have access to the 'Rum' code. You can have as many Code fields as you like. The 'Item' fields are the ID names of the items that the character is carrying. These need to match up with the item Name used in the items.csv file. As with the character name, the item Name must contain no spaces, and must be unique. Items, characters, and locations must also be unique from each other. As with the codes, you can have as many 'Item' columns as you need.
 
 2.   _**locations.csv**_ This file contains the information for the locations. The fields are:
                 
          Name    Description     Cash    Item1   Item2   ...
      
-     As with the characters file, the 'Name' field contains the location's ID. This must be unique (and unique from te character and item names) and without spaces. 'Description' is a field for text about the location; this will be posted to the top of the location channel so that players can see it if they move there during the game. 'Cash' indicates the amount of cash that is in this location at the start of the game. The 'Item' fields contain the ID names of the items that are in the location at the start of the game. As with the characters file, the Item columns can extend for as many columns as necessary, and must match the ID names in the items.csv file. Item names must be unique and contain no spaces. Note that the only location characters can't move to is one named 'GM'; hidden items can be stored here until the GM wants to allocate them during the game.
+     As with the characters file, the 'Name' field contains the location's ID. This must be unique (and unique from the character and item names) and without spaces. 'Description' is a field for text about the location; this will be posted to the top of the location channel so that players can see it if they move there during the game. 'Cash' indicates the amount of cash that is in this location at the start of the game. The 'Item' fields contain the ID names of the items that are in the location at the start of the game. As with the characters file, the Item columns can extend for as many columns as necessary, and must match the ID names in the items.csv file. Item names must be unique and contain no spaces. Note that the only location characters can't move to is one named 'GM'; hidden items can be stored here until the GM wants to allocate them during the game.
+     
+Each voice channel on your server should have a corresponding row in locations.csv. This will allow the bot to track when players move between channels.
 
 3.  _**items.csv**_ This file contains the information associated with the items. The fields are:
         
           ItemName    Heading     Visible     Text
     
-     The first field 'ItemName' is the ID name of the item which this piece of information is associated with. Note that if the bot cannot locate an item with this name, it will create a new one and move it to a location called 'GM'. This is the only location that players can't move their characters into. 'Heading' is the name of this piece of information if it is visible (e.g. 'description') or the code required to access it if it is invisible (e.g. "SecretInfoJ8"). 'Visible' should be set to either true or false. If it is true, then the information will be viewable by any character who examines the item. If it is false, then only characters that possess the heading code will be able to see this information. Finally, 'Text' contains the details of the information which will be displayed.
+     The first field 'ItemName' is the ID name of the item which this piece of information is associated with. Note that if the bot cannot locate an item with this name, it will create a new one and move it to a location called 'GM' (it will report this as an error message). This is the only location that players can't move their characters into. 'Heading' is the name of this piece of information if it is visible (e.g. 'description') or the code required to access it if it is invisible (e.g. "SecretInfoJ8"). 'Visible' should be set to either TRUE or FALSE. If TRUE, then the information will be viewable by any character who examines the item. If FALSE, then only characters that possess the heading code will be able to see this information. Finally, 'Text' contains the details of the information which will be displayed.
 
+An item may have multiple rows – one for the description visible to all, and other rows with secret information only for those characters with the correct codes.
+
+
+## Tips
+Create simple names for people and items – they will need to type them.
+Don’t use quotation marks in descriptions
+Double check spelling of everything
+Tell your players not to change their server nicknames – the bot will do this automatically.
+Have a second Discord login on another device so you can test each character and location.
 
 ## Using the Bot: Players
 This information can be accessed using the command _help. 
@@ -73,7 +92,7 @@ This information can be accessed using the command _help.
 - **\_view *ItemName/Cash/Code/Ability***: View a single item/cash/code/ability counts.
 - **\_give *IDName ItemName***: Give an item to the specified character using their unique ID name. 
 - **\_pay *IdName Amount***: Pay an amount of cash to another character using their unique ID name.
-- **\_steal *IDName ItemName***: Use up a stealing ability to steal either a named item or (if it is blank or does not match an item the character currently has), a random one from their inventory. Your victim will be notified that thier item is missing in 5-10 minutes. If your victim has any prevention abilities, they get a chance to use one to prevent the theft and discover you identity. 
+- **\_steal *IDName ItemName***: Use up a stealing ability to steal either a named item or (if it is blank or does not match an item the character currently has), a random one from their inventory. Your victim will be notified that their item is missing in 5-10 minutes. If your victim has any prevention abilities, they get a chance to use one to prevent the theft and discover you identity. 
 - **\_move *location***: Move to a location to gain access to its channel and view, take, or drop items there.
 - **\_leave**: Leave a location. You will lose access to its channel.
 - **\_take *ItemName/CashAmount***: Enter this command in a location channel to take something from there. The messages will vanish in approx 5 mins.
@@ -109,7 +128,7 @@ This information can be accessed using the command _help edit. These commands al
 - **description *IDName NewDescription***: Sets the location description. This will be posted in the location channel for players to read. If the game is already running, the description message in the location's private channel will be updated.
 - **cash *IDName Amount***: Sets the cash amount in a character or location inventory.
 - **renameinfo *ItemName InfoName NewInfoName***: Sets heading or codeword of a piece of item info. Note: heading cannot contain spaces.
-- **visible *ItemName InfoName true/false***: Sets the visiblity of the specified info. If it is invisible, only characters with the correct access code can see it.
+- **visible *ItemName InfoName true/false***: Sets the visibility of the specified info. If it is invisible, only characters with the correct access code can see it.
 - **text *ItemName InfoName detail***: Set the text associated with a piece of item info.
 - **steal *IDName AbilityCount***: Set the number of times a character can steal an item during the game.
 - **prevent *IDName AbilityCount***: Set the no. of times a character can prevent theft during the game.
